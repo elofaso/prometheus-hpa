@@ -1,18 +1,24 @@
 # prometheus-hpa
 
-Install https://marketplace.digitalocean.com/apps/kubernetes-monitoring-stack
+1. Install https://marketplace.digitalocean.com/apps/kubernetes-monitoring-stack
 
-Install Prometheus Adapter
-$ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-$ helm repo update
-$ helm install prometheus-adapter prometheus-community/prometheus-adapter --create-namespace custom-metrics -f prometheus-adapter-values.yaml
+2. Install Prometheus Adapter
+```
+helm repo add prometheus-community https://prometheus-community.github.io/helm-chart
+helm repo update
+helm install prometheus-adapter prometheus-community/prometheus-adapter --create-namespace custom-metrics -f prometheus-adapter-values.yaml
+```
 
-'kubectl apply -f' each of of the remaining yaml files
+3. 'kubectl apply -f' each of of the remaining yaml files
 
-In DigitalOcean UI set maximum number of nodes under Cluster|Pool|Resources|Pool|Autoscale
+4, In DigitalOcean UI set maximum number of nodes under Cluster|Pool|Resources|Pool|Autoscale
 
-For load testing, scale deploy/load-generator
-$ kubectl scale --replicas=<n> deploy/load-generator
+5. For load testing, scale deploy/load-generator:
+```
+kubectl scale --replicas=<n> deploy/load-generator
+```
 
-View pod scaling details
-$ kubectl describe hpa sample-node-metrics-app-hpa
+6. View pod scaling details:
+```
+kubectl describe hpa sample-node-metrics-app-hpa
+```
