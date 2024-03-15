@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-node-metrics-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sample-node-metrics-app
+  template:
+    metadata:
+      labels:
+        app: sample-node-metrics-app
+    spec:
+      containers:
+      - name: sample-node-metrics-app
+        image: elofaso/sample-node-metrics-app
+        ports:
+        - name: express
+          containerPort: 3000
+        resources:
+          requests:
+            cpu: 100m
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sample-node-metrics-app-svc
+spec:
+  selector:
+    app: sample-node-metrics-app
+  ports:
+    - name: http-web
+      port: 80
+      targetPort: 3000

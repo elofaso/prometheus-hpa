@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: sample-node-metrics-app-monitor
+  namespace: kube-prometheus-stack # Deploy PodMonitor in the same namespace as the kube-prometheus-stack
+  labels:
+    app: sample-node-metrics-app  # Existing label to match your Deployment
+    release: kube-prometheus-stack  # Ensuring Prometheus discovers this PodMonitor
+spec:
+  selector:
+    matchLabels:
+      app: sample-node-metrics-app # Label selector to match your pods
+  namespaceSelector:
+    matchNames:
+      - default # Specify the namespace of the pods to monitor
+  podMetricsEndpoints:
+    - port: express # Name of the port as defined in your deployment
+      path: /metrics # Path where metrics are exposed
